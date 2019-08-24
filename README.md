@@ -22,9 +22,10 @@ VERSION:
    0.0.0
 
 COMMANDS:
-     get      Get a metadata with key
-     set      Set a metadata with key and value
-     help, h  Shows a list of commands or help for one command
+     get                 Get a metadata with key
+     set                 Set a metadata with key and value
+     lastSuccessfulMeta  Fetch lastSuccessfulMeta from an external job
+     help, h             Shows a list of commands or help for one command
 
 GLOBAL OPTIONS:
    --meta-space value  Location of meta temporarily (default: "/sd/meta")
@@ -55,6 +56,20 @@ USAGE:
 OPTIONS:
    --json-value, -j  Treat value as json
 
+---
+NAME:
+   meta lastSuccessfulMeta - Fetch lastSuccessfulMeta from an external job
+
+USAGE:
+   meta lastSuccessfulMeta [command options] job-description
+      job-description may be sd@pipelineid:jobname or just jobname for same pipeline
+
+
+OPTIONS:
+   --sd-token value, -t value        Set the SD_TOKEN to use in SD API calls [$SD_TOKEN]
+   --sd-api-url value, -u value      Set the SD_API_URL to use in SD API calls [$SD_API_URL]
+   --sd-pipeline-id value, -p value  Set the SD_PIPELINE_ID for job description (default: 0) [$SD_PIPELINE_ID]
+   
 $ ./meta set aaa bbb
 $ ./meta get aaa
 bbb
@@ -67,6 +82,10 @@ $ ./meta get foo.bar
 baz
 $ ./meta get foo.bar --json-value
 "baz"
+$ ./meta lastSuccessfulMeta sd@123:other-job
+$ ./meta get meta --external sd@123:other-job
+$ ./meta lastSuccessfulMeta component
+$ ./meta get meta --external component
 ```
 
 ## Testing
